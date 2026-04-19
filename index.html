@@ -180,34 +180,38 @@
     }
 
     function generateQr(name, dept) {
-      const dt = getDateTimeString();
-      const nameHex = toHex(name);
-      const deptHex = toHex(dept);
+  const dt = getDateTimeString();
+  
+  // 1. 날짜시간 문자열 뒤집기 (암호화 효과)
+  const reversedDt = dt.split('').reverse().join('');
+  
+  // 2. 한글 데이터를 변환 없이 그대로 합치기
+  const raw = `${reversedDt}|${name}|${dept}`;
 
-      // 원본 데이터: 날짜시간|이름HEX|소속HEX
-      const raw = `${dt}|${nameHex}|${deptHex}`;
+  // 3. 무작위 특수문자 삽입
+  const obfuscated = insertRandomSpecialChars(raw, 4);
 
-      // 무작위 특수문자 삽입
-      const obfuscated = insertRandomSpecialChars(raw, 6);
+  if (qrInstance) {
+    qrContainer.innerHTML = '';
+  }
+  qrInstance = new QRCode(qrContainer, {
+    text: obfuscated, // 한글이 포함된 문자열 그대로 생성
+    width: 240,       // 모바일 대응을 위해 크기 살짝 조절
+    height: 240
+  });
 
-      if (qrInstance) {
-        qrContainer.innerHTML = '';
-      }
-      qrInstance = new QRCode(qrContainer, {
-        text: obfuscated,
-        width: 260,
-        height: 260
-      });
+  if (qrTimer) clearTimeout(qrTimer);
+  statusEl.textContent = '이 QR은 15초 동안만 유효합니다.'; // 시간은 편의에 따라 조절하세요
+  qrTimer = setTimeout(() => {
+    qrContainer.innerHTML = '';
+    statusEl.textContent = 'QR이 만료되었습니다. 다시 생성하세요.';
+  }, 15000);
 
-      if (qrTimer) clearTimeout(qrTimer);
-      statusEl.textContent = '이 QR은 5초 동안만 유효합니다.';
-      qrTimer = setTimeout(() => {
-        qrContainer.innerHTML = '';
-        statusEl.textContent = 'QR이 만료되었습니다. 다시 생성하세요.';
-      }, 5000);
+  qrSection.style.display = 'block';
+  // 생성 즉시 QR 위치로 화면 이동 (잘림 방지)
+  qrSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
-      qrSection.style.display = 'block';
-    }
 
     // 초기 로드: 이름 저장 여부 확인
     window.addEventListener('load', () => {
