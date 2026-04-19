@@ -200,11 +200,11 @@
       });
 
       if (qrTimer) clearTimeout(qrTimer);
-      statusEl.textContent = '이 QR은 15초 동안만 유효합니다.';
+      statusEl.textContent = '이 QR은 5초 동안만 유효합니다.';
       qrTimer = setTimeout(() => {
         qrContainer.innerHTML = '';
         statusEl.textContent = 'QR이 만료되었습니다. 다시 생성하세요.';
-      }, 15000);
+      }, 5000);
 
       qrSection.style.display = 'block';
     }
