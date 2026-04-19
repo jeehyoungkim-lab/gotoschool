@@ -99,10 +99,10 @@
       <p>이름은 한 번만 설정할 수 있습니다.</p>
 
       <div class="label">이름 (고정)</div>
-      <input id="name-input" type="text" placeholder="예: 김지형" />
+      <input id="name-input" type="text" placeholder="예: 홍길동" />
 
       <div class="label">소속 (수정 가능)</div>
-      <input id="dept-input" type="text" placeholder="예: 3학년 2반" />
+      <input id="dept-input" type="text" placeholder="예: 한국대학교 컴퓨터공학과" />
 
       <button id="save-first-btn">저장하고 QR 생성</button>
     </div>
@@ -114,7 +114,7 @@
       <input id="name-fixed" type="text" readonly />
 
       <div class="label">소속 (수정 가능)</div>
-      <input id="dept-edit" type="text" placeholder="예: 3학년 2반" />
+      <input id="dept-edit" type="text" placeholder="예: 한국대학교 컴퓨터공학과" />
 
       <button id="generate-btn">QR 생성하기</button>
     </div>
@@ -201,11 +201,11 @@
   });
 
   if (qrTimer) clearTimeout(qrTimer);
-  statusEl.textContent = '이 QR은 15초 동안만 유효합니다.'; // 시간은 편의에 따라 조절하세요
+  statusEl.textContent = '이 QR은 10초 동안만 유효합니다.'; // 시간은 편의에 따라 조절하세요
   qrTimer = setTimeout(() => {
     qrContainer.innerHTML = '';
     statusEl.textContent = 'QR이 만료되었습니다. 다시 생성하세요.';
-  }, 15000);
+  }, 10000);
 
   qrSection.style.display = 'block';
   // 생성 즉시 QR 위치로 화면 이동 (잘림 방지)
