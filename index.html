@@ -7,24 +7,30 @@
   <link rel="manifest" href="/manifest.json">
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f3f4f6;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      color: #111827;
-    }
-    .container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 5vw;
-      text-align: center;
-    }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f3f4f6;
+  color: #111827;
+  /* 1. 고정 높이가 아닌 최소 높이로 설정 */
+  min-height: 100dvh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* 2. 요소들이 많아지면 중앙 정렬보다는 위쪽 정렬이 안전함 */
+  justify-content: flex-start; 
+  align-items: center;
+  /* 3. 모바일 주소창 및 하단 여백 대비 */
+  padding: 10vw 5vw 15vw 5vw; 
+  text-align: center;
+  box-sizing: border-box;
+}
+
     h1 {
       font-size: 8vw;
       margin-bottom: 5vw;
